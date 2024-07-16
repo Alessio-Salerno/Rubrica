@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LEZIONE DOM 2 </title>
+    
+    <!-- CDN GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+   
+    
+    <!-- BOOTSTRAP CDN CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    
+    
+    <!-- STYLE -->
+    
+    <style>
+        *{
+            font-family: "Raleway", sans-serif;
+            color: black;
+        }
+        
+        body{
+            background-color: rgb(180, 210, 224);
+            color: rgb(0, 255, 65);
+        }
+        
+        .custom-shadow{
+            box-shadow: 2px 2px 5px #008f11;
+        }
+        
+        
+        
+        .btn-custom{
+            height: 60px;
+            width: 150px;
+            color: rgb(0, 0, 0);
+            background-color: blanchedalmond;
+            border: 2px solid rgb(5, 5, 5);
+            display: block;
+            margin: auto;
+        }
+        
+        
+       
+        
+        
+        .card-custom{
+            box-shadow: 2px 2px 5px #008f11, -2px -2px 5px #008f11;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        
+        p{
+            margin: 0;
+            padding: 0;
+        }
+        
+        
+        
+        
+        .icon{
+            cursor: pointer;
+        }
+        
+        
+        
+        
+        
+    </style>
+    
+</head>
+<body>
+    
+    <header>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Rubrica </h1>
+            </div>
+        </div>
+        
+    </header>
+    
+    
+    <section class="container-fluid my-5">
+        <div class="row">
+            <article class="col-12 col-md-4">
+                <h3 class="text-center">Mostra Contatti in rubrica</h3>
+                <button id="mostraContatti" class="btn btn-custom">Mostra Contatti</button>
+            </article> 
+            
+            
+            
+          
+            <article class="col-12 col-md-4">
+                
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center">Aggiungi nuovo Contatto</h3>
+                    </div>
+                    
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <input type="text" id="inputNome" class="form-control" placeholder="Nome" aria-label="Nome" value="">    <!-- value = è il contenuto che si scrive dentro il form control -->        
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" id="inputNumero" class="form-control" placeholder="Phone Number" aria-label="Phone Number" value="">
+                        </div>
+                    </div>
+                    
+                    <div class="col-4">
+                        <button id="addContattiBtn" class="btn btn-custom">Aggiungi Contatti</button>
+                        <button id="removeContattiBtn" class="btn btn-custom mt-2">Rimuovi Contatti</button>
+                        
+                    </div>
+                </div>
+                
+            </article>
+            
+          </section>
+          
+          
+    
+    
+    
+    <!-- CARD CONTATTI -->
+    
+    <section>
+        <div class="row justify-content-center">
+            <article id="contactWrapper" class="col-12 col-md-8">
+            </article>
+        </div>
+    </section>
+    
+    
+    
+    <script>
+
+        
+                
+        // CATTURA ELEMENTI
+        
+        // WRAPPER DEI CONTATTI
+        let contactWrapper = document.querySelector('#contactWrapper')
+        
+        
+        // BOTTONI
+        let mostraContatti = document.querySelector('#mostraContatti')
+        let addContattiBtn = document.querySelector('#addContattiBtn');
+        let removeContattiBtn = document.querySelector('#removeContattiBtn');
+        
+        
+        // INPUT
+        
+        let inputNome = document.querySelector('#inputNome');
+        let inputNumero = document.querySelector('#inputNumero');
+          
+
+
+        // VARIABILE DI APPOGGIO
+        let check = false;
+        
+        
+        
+        const rubrica = {
+            lista_contatti : [
+            {contact_name : 'Yoda', phoda_number: 33333333},
+            {contact_name : 'Filippo', phoda_number: 3333355},
+            {contact_name : 'Matteo', phoda_number: 3333378999},
+            ],
+            
+            // MOSTRA CONTATTI
+            
+            mostraContatti : function(){
+              
+                contactWrapper.innerHTML = '';
+                
+                rubrica.lista_contatti.forEach( (contatto) => {
+                    let div = document.createElement('div');
+                    div.classList.add('card-custom');
+                    div.innerHTML = `
+                    <p class="lead">${contatto.contact_name}</p>
+                    <p>${contatto.phoda_number}</p>
+                    <i class="fa-solid fa-trash icon"></i>
+                    `;
+                    
+                    contactWrapper.appendChild(div);
+                    
+                  
+                   
+                });
+                
+                // ICONE
+                let icons = document.querySelectorAll('.icon');
+                  icons.forEach( (icona, i) => {
+                    icona.addEventListener('click', () => {
+                      alert(`Sei sicuro di voler cancellare il contatto?`);
+                      rubrica.lista_contatti.splice(i, 1);
+                      rubrica.mostraContatti();
+                    });
+                  });                
+            },
+            
+            
+            // AGGIUNGI CONTATTI
+            
+            addContact : function(newName, newNumber){
+                if(newName && newNumber){
+                    rubrica.lista_contatti.push({contact_name : newName , phoda_number: newNumber});     
+                    this.mostraContatti();
+                    if(check == false){
+                        check = true;
+                        mostraContatti.innerHTML = 'Nascondi Contatto'
+                        
+                    };                
+                }
+                else if(!newName && newNumber){
+                    alert('Inserisci nome per continuare')
+                }
+                else if(!newNumber && newName){
+                    alert('Inserisci il numero per continuare')
+                }
+                else{
+                    alert('Inserisci nome e numero');
+                }
+            },
+            
+            removeContatti : function(removeName){
+                let names = rubrica.lista_contatti.map( (contatto) => contatto.contact_name);
+                let index = names.indexOf(removeName);
+                if(index >= 0){
+                    rubrica.lista_contatti.splice(index, 1);
+                    rubrica.mostraContatti();
+                    if(check == false){
+                        check = true;
+                        mostraContatti.innerHTML = 'Nascondi Contatto'
+                        
+                    };    
+                }
+            }
+        }
+        
+        // rubrica.mostraContatti();
+        
+        
+        mostraContatti.addEventListener('click', () => {
+            // rubrica.mostraContatti();
+            
+            if(check == false){
+                rubrica.mostraContatti();
+                check = true;
+                mostraContatti.innerHTML = 'Nascondi Contatto'
+            }
+            else{
+                contactWrapper.innerHTML = '';
+                check = false;
+                mostraContatti.innerHTML = 'Mostra Contatto'
+            }
+        });
+        
+        
+        //  EVENTO CLICK AGGIUNGI CONTATTI
+        // AL CLICK SUL BOTTONE AGGIUNGI CONTATTO E POI SU MOSTRA CONTATTI SPUNTERA' PIPPO
+        
+        addContattiBtn.addEventListener('click', () => {
+            // Per usufruire degi input, dentro la funzione addContact inserire gli input.value
+            rubrica.addContact(inputNome.value, inputNumero.value);
+            // Appena aggiunge il contatto si pulisce il campo del nome e numero
+            inputNome.value = '';
+            inputNumero.value = '';
+            // rubrica.addContact('Pippo', 3385602325);
+            rubrica.mostraContatti();
+            
+        })
+        
+        
+        removeContattiBtn.addEventListener('click', () => {
+            
+            rubrica.removeContatti(inputNome.value);
+        })
+        
+    </script>
+    
+    <!-- KIT ICONE -->
+    <script src="https://kit.fontawesome.com/f0488c32c1.js" crossorigin="anonymous"></script>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
