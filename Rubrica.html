@@ -294,8 +294,6 @@
      editContattiBtn.addEventListener('click', () => {
       if(inputNome.value != '') {
         rubrica.editContatti(inputNome.value, inputNumero.value);
-        inputNome.value = '';
-        inputNumero.value = '';
       }
     });
 
@@ -340,6 +338,8 @@
       
       rubrica.removeContatti(inputNome.value);
     })
+
+
     
   </script>
   
