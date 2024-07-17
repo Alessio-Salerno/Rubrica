@@ -95,6 +95,8 @@
 </head>
 <body>
   
+<!-- HEADER -->
+
   <header>
     <div class="row">
       <div class="col-12">
@@ -105,6 +107,8 @@
   </header>
   
   
+<!-- COLONNA 1 -->
+
   <section class="container-fluid my-5">
     <div class="row">
       <article class="col-12 col-md-4">
@@ -113,7 +117,7 @@
       </article> 
       
       
-      
+      <!-- COLONNA 2 -->
       
       <article class="col-12 col-md-4">
         
@@ -292,7 +296,7 @@
 
      // MODIFICA BOTTONE
      editContattiBtn.addEventListener('click', () => {
-      if(inputNome.value != '') {
+      if(contatto.contact_name == nome && inputNumero.value != '') {
         rubrica.editContatti(inputNome.value, inputNumero.value);
       }
     });
@@ -338,6 +342,19 @@
       
       rubrica.removeContatti(inputNome.value);
     })
+
+  
+
+
+  
+
+  
+   
+  
+     
+
+
+
 
 
     
