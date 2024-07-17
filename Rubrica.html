@@ -268,7 +268,7 @@
    // MODIFICA CONTATTI FUNCTION
    editContatti: function(nome, numero) {
         rubrica.lista_contatti.forEach(contatto => {
-          if(contatto.contact_name == nome) {
+          if(contatto.contact_name == nome && inputNumero.value != '') {
             contatto.phoda_number = numero;
           }
         });
@@ -303,7 +303,7 @@
     
     // rubrica.mostraContatti();
     
-    
+
     mostraContatti.addEventListener('click', () => {
       // rubrica.mostraContatti();
       if(check == false){
