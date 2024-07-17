@@ -275,7 +275,7 @@
         this.mostraContatti();
       },
 
-
+  
 
       
       removeContatti : function(removeName){
@@ -296,11 +296,10 @@
 
      // MODIFICA BOTTONE
      editContattiBtn.addEventListener('click', () => {
-      if(contatto.contact_name == nome && inputNumero.value != '') {
-        rubrica.editContatti(inputNome.value, inputNumero.value);
-      }
-    });
-
+    let newName = inputNome.value;
+    let newNumber = inputNumero.value;
+    rubrica.editContatti(newName, newNumber);
+});
     
     // rubrica.mostraContatti();
     
